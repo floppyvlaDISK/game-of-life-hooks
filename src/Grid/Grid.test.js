@@ -17,6 +17,14 @@ it('renders without crashing', () => {
   });
 });
 
+it('renders cells based on size prop', () => {
+  act(() => {
+    render(<Grid size={5} />, container);
+  });
+
+  expect(container.querySelectorAll('cell')).toHaveLength(25);
+});
+
 afterEach(() => {
   unmountComponentAtNode(container);
   document.body.removeChild(container);
