@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils"
+import 'jest-styled-components'
 
 import GridCell from './GridCell';
 import { CELL_STATES } from './CONST';
@@ -27,8 +28,8 @@ it('renders in "dead" state', () => {
     );
   });
 
-  expect(container.querySelector(sel('cell')).style.backgroundColor)
-    .toBe('palevioletred');
+  expect(container.querySelector(sel('cell')))
+    .toHaveStyleRule('background-color: palevioletred');
 });
 
 it('rendres in "alive" state', () => {
@@ -39,8 +40,8 @@ it('rendres in "alive" state', () => {
     );
   });
 
-  expect(container.querySelector(sel('cell')).style.backgroundColor)
-    .toBe('papayawhip');
+  expect(container.querySelector(sel('cell')))
+    .toHaveStyleRule('background-color: papayawhip');
 });
 
 afterEach(() => {

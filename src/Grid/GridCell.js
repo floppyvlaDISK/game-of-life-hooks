@@ -1,26 +1,22 @@
-import React from 'react';
+import styled from 'styled-components';
+
 import { CELL_STATES } from './CONST';
 
-function GridCell(props) {
-  return (
-    <span
-      data-testid="cell"
-      style={{
-        width: '100px',
-        height: '100px',
-        display: 'inline-block',
-        marginLeft: '5px',
-        marginBottom: '5px',
-        backgroundColor: pickColorBasedOnCellState()
-      }}
-    />
-  );
+const GridCell = styled.span.attrs({
+  'data-testid': 'cell',
+})`
+  width: '100px',
+  height: '100px',
+  display: 'inline-block',
+  margin-left: '5px',
+  margin-bottom: '5px',
+  background-color: ${props => pickColorBasedOn(props.cellState)}
+`;
 
-  function pickColorBasedOnCellState() {
-    return props.cellState === CELL_STATES.alive
-      ? 'papayawhip'
-      : 'palevioletred';
-  }
+function pickColorBasedOn(cellState) {
+  return cellState === CELL_STATES.alive
+    ? 'papayawhip'
+    : 'palevioletred';
 }
 
 export default GridCell;
