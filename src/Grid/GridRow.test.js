@@ -2,7 +2,7 @@ import React from 'react';
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils"
 
-import Grid from "./Grid";
+import GridRow from "./GridRow";
 import { sel } from '../utils/tests';
 
 let container = null;
@@ -14,17 +14,20 @@ beforeEach(() => {
 
 it('renders without crashing', () => {
   act(() => {
-    render(<Grid />, container);
+    render(<GridRow cells={[]} />, container);
   });
 });
 
-it('renders cells based on size prop', () => {
-  const size = 5;
+it('renders cells', () => {
+  const cellsAmount = 10;
   act(() => {
-    render(<Grid size={size} />, container);
+    render(
+      <GridRow cells={Array(cellsAmount).fill({})} />,
+      container
+    );
   });
 
-  expect(container.querySelectorAll(sel('cell'))).toHaveLength(size * size);
+  expect(container.querySelectorAll(sel('cell'))).toHaveLength(cellsAmount);
 });
 
 afterEach(() => {

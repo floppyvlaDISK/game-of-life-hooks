@@ -6,9 +6,9 @@ export default function createGrid(size) {
   function createRows() {
     let result = [];
     for (let row = 0; row < size; row++) {
-      result.push(
-        createGridCellsFor(row)
-      );
+      result.push({
+        cells: createGridCellsFor(row)
+      });
     }
     return result;
   }

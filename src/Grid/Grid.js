@@ -1,20 +1,16 @@
 import React from 'react';
 
 import createGrid from './createCrid';
+import GridRow from './GridRow';
 
 function Grid(props) {
   const grid = createGrid(props.size);
-  return (
-    <div>
-      {grid.rows.map((row, index) => (
-        <div key={`row-${index}`}>
-          {row.map(cell => (
-            <span key={cell} data-testid="cell">{cell}</span>
-          ))}
-        </div>
-      ))}
-    </div>
-  );
+  return grid.rows.map((row, index) => (
+    <GridRow
+      cells={row.cells}
+      key={index}
+    />
+  ));
 }
 
 export default Grid;
