@@ -17,10 +17,9 @@ function GridCell(props) {
   );
 
   function pickColorBasedOnCellState() {
-    console.log(props.cellState);
     return props.cellState === CELL_STATES.alive
-      ? 'red'
-      : 'black';
+      ? 'papayawhip'
+      : 'palevioletred';
   }
 }
 

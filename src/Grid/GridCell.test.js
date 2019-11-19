@@ -28,7 +28,7 @@ it('renders in "dead" state', () => {
   });
 
   expect(container.querySelector(sel('cell')).style.backgroundColor)
-    .toBe('black');
+    .toBe('palevioletred');
 });
 
 it('rendres in "alive" state', () => {
@@ -40,7 +40,7 @@ it('rendres in "alive" state', () => {
   });
 
   expect(container.querySelector(sel('cell')).style.backgroundColor)
-    .toBe('red');
+    .toBe('papayawhip');
 });
 
 afterEach(() => {
