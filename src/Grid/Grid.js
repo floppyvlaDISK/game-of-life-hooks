@@ -1,13 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Table extends Component {
-  render() {
-    return (
-      <div>
+import createGrid from './createCrid';
 
-      </div>
-    );
-  }
+function Grid(props) {
+  const grid = createGrid(props.size);
+  return (
+    <div>
+      {grid.rows.map((row, index) => (
+        <div key={`row-${index}`}>
+          {row.map(cell => (
+            <span key={cell} data-testid="cell">{cell}</span>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
 }
 
-export default Table;
+export default Grid;

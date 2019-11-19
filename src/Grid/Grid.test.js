@@ -3,6 +3,7 @@ import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils"
 
 import Grid from "./Grid";
+import { sel } from '../utils/tests';
 
 let container = null;
 
@@ -22,7 +23,7 @@ it('renders cells based on size prop', () => {
     render(<Grid size={5} />, container);
   });
 
-  expect(container.querySelectorAll('cell')).toHaveLength(25);
+  expect(container.querySelectorAll(sel('cell'))).toHaveLength(25);
 });
 
 afterEach(() => {
