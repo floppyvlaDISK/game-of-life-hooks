@@ -1,16 +1,17 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import { CELL_STATES } from './CONST';
 import GridCell from './GridCell';
 
+const GridCellsWrapper = styled.div`
+  display: flex;
+  justifyContent: center;
+`;
+
 function GridRow(props) {
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center'
-      }}
-    >
+    <GridCellsWrapper>
       {props.cells.map((_cell, index) => (
         <GridCell
           key={index}
@@ -19,7 +20,7 @@ function GridRow(props) {
           }
         />
       ))}
-    </div>
+    </GridCellsWrapper>
   );
 }
 
