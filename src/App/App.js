@@ -3,12 +3,14 @@ import React from 'react';
 import { Grid } from '../Grid';
 import { Button } from '../Button';
 import AppWrapper from './AppWrapper';
+import useGameOfLife from '../useGameOfLife';
 
 function App() {
+  const [grid, toggleStartPause] = useGameOfLife(7);
   return (
     <AppWrapper>
-      <Grid size={5} />
-      <Button>Start</Button>
+      <Grid rows={grid.rows} />
+      <Button onClick={toggleStartPause}>Start</Button>
     </AppWrapper>
   );
 }

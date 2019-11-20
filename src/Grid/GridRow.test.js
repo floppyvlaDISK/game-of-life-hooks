@@ -3,7 +3,6 @@ import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils"
 
 import GridRow from "./GridRow";
-import { sel } from '../utils/tests';
 
 let container = null;
 
