@@ -18,18 +18,6 @@ it('renders without crashing', () => {
   });
 });
 
-it('renders cells', () => {
-  const cellsAmount = 10;
-  act(() => {
-    render(
-      <GridRow cells={Array(cellsAmount).fill({})} />,
-      container
-    );
-  });
-
-  expect(container.querySelectorAll(sel('cell'))).toHaveLength(cellsAmount);
-});
-
 afterEach(() => {
   unmountComponentAtNode(container);
   document.body.removeChild(container);
