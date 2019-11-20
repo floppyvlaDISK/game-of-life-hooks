@@ -1,7 +1,7 @@
-export default function createGrid(size) {
-  return {
+export default function useGameOfLife(size) {
+  return [{
     rows: createRows()
-  };
+  }];
 
   function createRows() {
     let result = [];

@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { CELL_STATES } from './CONST';
-import createGrid from './createCrid';
+import useGameOfLife from './useGameOfLife';
 import GridRow from './GridRow';
 import GridCell from './GridCell';
 
 function Grid(props) {
-  const grid = createGrid(props.size);
+  const [grid, start] = useGameOfLife(props.size);
   return grid.rows.map((row, index) => (
     <GridRow
       cells={row.cells}
