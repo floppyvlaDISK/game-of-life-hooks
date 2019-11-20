@@ -1,7 +1,11 @@
+import { useState, useEffect } from 'react';
+
 export default function useGameOfLife(size) {
-  return [{
-    rows: createRows()
-  }];
+  return [
+    {
+      rows: createRows()
+    },
+  ];
 
   function createRows() {
     let result = [];
