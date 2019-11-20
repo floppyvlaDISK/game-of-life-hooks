@@ -1,15 +1,15 @@
 import React from 'react';
 
-import './App.css';
 import { Grid } from '../Grid';
 import { Button } from '../Button';
+import AppWrapper from './AppWrapper';
 
 function App() {
   return (
-    <div className="App">
+    <AppWrapper>
       <Grid size={5} />
       <Button>Start</Button>
-    </div>
+    </AppWrapper>
   );
 }
 
