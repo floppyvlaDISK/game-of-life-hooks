@@ -6,14 +6,14 @@ import AppWrapper from './AppWrapper';
 import useGameOfLife from '../useGameOfLife';
 
 function App() {
-  const [grid, state, toggleState, resetState] = useGameOfLife(5);
+  const [grid, isGameOn, toggleIsGameOn, resetGame] = useGameOfLife(5);
   return (
     <AppWrapper>
       <Grid grid={grid} />
-      <Button onClick={toggleState}>
-        {state === 0 ? 'Start' : 'Pause'}
+      <Button onClick={toggleIsGameOn}>
+        {isGameOn ? 'Pause' : 'Start'}
       </Button>
-      <Button onClick={resetState} secondary>
+      <Button onClick={resetGame} secondary>
         Reset
       </Button>
     </AppWrapper>
