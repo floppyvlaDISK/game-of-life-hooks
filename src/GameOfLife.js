@@ -48,4 +48,8 @@ class Cell {
   constructor(state) {
     this._state = state || 0;
   }
+
+  get state() {
+    return this._state;
+  }
 }
