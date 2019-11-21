@@ -9,7 +9,7 @@ function App() {
   const [grid, state, toggleState, resetState] = useGameOfLife(5);
   return (
     <AppWrapper>
-      <Grid rows={grid} />
+      <Grid grid={grid} />
       <Button onClick={toggleState}>
         {state === 0 ? 'Start' : 'Pause'}
       </Button>

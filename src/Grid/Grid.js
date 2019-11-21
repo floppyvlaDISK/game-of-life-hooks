@@ -5,7 +5,7 @@ import GridRow from './GridRow';
 import GridCell from './GridCell';
 
 function Grid(props) {
-  return props.rows.map((row, index) => (
+  return props.grid.map((row, index) => (
     <GridRow
       cells={row.cells}
       key={index}

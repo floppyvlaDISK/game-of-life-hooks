@@ -14,7 +14,7 @@ beforeEach(() => {
 
 it('renders without crashing', () => {
   act(() => {
-    render(<Grid rows={[]} />, container);
+    render(<Grid grid={[]} />, container);
   });
 });
 
@@ -23,7 +23,7 @@ it('renders cells based on size prop', () => {
   act(() => {
     render(
       <Grid
-        rows={[
+        grid={[
           { cells: ["0-0", "0-1", "0-2", "0-3", "0-4"] },
           { cells: ["1-0", "1-1", "1-2", "1-3", "1-4"] },
           { cells: ["2-0", "2-1", "2-2", "2-3", "2-4"] },
