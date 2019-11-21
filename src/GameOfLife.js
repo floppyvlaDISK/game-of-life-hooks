@@ -1,3 +1,5 @@
+import { CELL_STATES } from "./Grid/CONST";
+
 export default class GameOfLife {
   constructor(grid) {
     this._grid = grid;
@@ -31,7 +33,7 @@ export default class GameOfLife {
       let cellsForRow = [];
       for (let col = 0; col < size; col++) {
         cellsForRow.push(
-          new Cell(Math.round(Math.random())),
+          new Cell(Cell.getRandomState()),
         );
       }
       result.push(cellsForRow);
@@ -47,6 +49,10 @@ export default class GameOfLife {
 class Cell {
   constructor(state) {
     this._state = state || 0;
+  }
+
+  static getRandomState() {
+    return Math.random() > 0.5 ? CELL_STATES.dead : CELL_STATES.alive;
   }
 
   get state() {

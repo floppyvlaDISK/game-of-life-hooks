@@ -1,4 +1,5 @@
 import GameOfLife from './GameOfLife';
+import { CELL_STATES } from './Grid/CONST';
 
 it('creates grid with random cells from size', () => {
   const g = GameOfLife.createFromSize(3);
@@ -10,9 +11,9 @@ it('creates grid with random cells from size', () => {
 it('creates grid from array of cell values', () => {
   const g = GameOfLife.createFromCells(
     [
-      [0, 1, 1],
-      [1, 1, 0],
-      [0, 1, 0]
+      [CELL_STATES.dead, CELL_STATES.alive, CELL_STATES.alive],
+      [CELL_STATES.alive, CELL_STATES.alive, CELL_STATES.dead],
+      [CELL_STATES.dead, CELL_STATES.alive, CELL_STATES.dead]
     ]
   );
 
