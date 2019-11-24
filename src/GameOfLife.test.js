@@ -56,7 +56,7 @@ it('Any live cell with two live neighbours lives on to the next generation', () 
 it('Any live cell with three live neighbours lives on to the next generation', () => {
   const g = GameOfLife.createFromCells(
     [
-      [CELL_STATES.alive, CELL_STATES.dead, CELL_STATES],
+      [CELL_STATES.alive, CELL_STATES.dead, CELL_STATES.dead],
       [CELL_STATES.dead, CELL_STATES.alive, CELL_STATES.dead],
       [CELL_STATES.alive, CELL_STATES.dead, CELL_STATES.alive],
     ]
@@ -67,4 +67,20 @@ it('Any live cell with three live neighbours lives on to the next generation', (
   g.next();
 
   expect(g.grid[1][1].state).toBe(CELL_STATES.alive);
+});
+
+it('Any live cell with more than three live neighbours dies, as if by overpopulation.', () => {
+  const g = GameOfLife.createFromCells(
+    [
+      [CELL_STATES.alive, CELL_STATES.dead, CELL_STATES.alive],
+      [CELL_STATES.dead, CELL_STATES.alive, CELL_STATES.dead],
+      [CELL_STATES.alive, CELL_STATES.dead, CELL_STATES.alive],
+    ]
+  );
+
+  expect(g.grid[1][1].state).toBe(CELL_STATES.alive);
+
+  g.next();
+
+  expect(g.grid[1][1].state).toBe(CELL_STATES.dead);
 });
