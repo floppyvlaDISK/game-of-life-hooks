@@ -56,15 +56,51 @@ export default class GameOfLife {
     for (let row = 0; row < this.grid.length; row++) {
       let cellValuesForRow = [];
       for (let col = 0; col < this.grid[row].length; col++) {
-        cellValuesForRow.push(this.calculateCellNextState(row, col));
+        cellValuesForRow.push(this._calculateCellNextStateFor(row, col));
       }
       result.push(cellValuesForRow);
     }
     return result;
   }
 
-  calculateCellNextState(row, col) {
-    /* this.grid[row][col] =  */
+  _calculateCellNextStateFor(row, col) {
+    const aliveNeighbors = this._getAliveNeighborsFor(row, col);
+    // NumberRange class!
+    if (aliveNeighbors < 2) {
+      return CELL_STATES.dead;
+    }
+    if (aliveNeighbors >= 2 && aliveNeighbors <= 3) {
+      return CELL_STATES.alive;
+    }
     return CELL_STATES.dead;
+  }
+
+  _getAliveNeighborsFor(row, cell) {
+    return this._getNeighborsFor(row, cell)
+      .filter(Boolean)
+      .reduce(
+        (result, aCell) => {
+          if (aCell.state === CELL_STATES.alive) {
+            result += 1;
+          }
+          return result;
+        },
+        0,
+      );
+  }
+
+  _getNeighborsFor(row, cell) {
+    return [
+      (this._grid[row - 1] || [])[cell - 1],
+      (this._grid[row - 1] || [])[cell],
+      (this._grid[row - 1] || [])[cell + 1],
+
+      this._grid[row][cell - 1],
+      this._grid[row][cell + 1],
+
+      (this._grid[row + 1] || [])[cell - 1],
+      (this._grid[row + 1] || [])[cell],
+      (this._grid[row + 1] || [])[cell - 1],
+    ];
   }
 }
