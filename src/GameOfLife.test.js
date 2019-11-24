@@ -20,3 +20,18 @@ it('creates grid from array of cell values', () => {
   expect(g.grid).toHaveLength(3);
   expect(g.grid[0]).toHaveLength(3);
 });
+
+it('Any live cell with fewer than two live neighbours dies, as if by underpopulation.', () => {
+  const g = GameOfLife.createFromCells(
+    [
+      [CELL_STATES.dead, CELL_STATES.dead],
+      [CELL_STATES.dead, CELL_STATES.alive],
+    ]
+  );
+
+  expect(g.grid[1][1].state).toBe(CELL_STATES.alive);
+
+  g.next();
+
+  expect(g.grid[1][1].state).toBe(CELL_STATES.dead);
+});
