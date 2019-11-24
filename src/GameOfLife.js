@@ -63,21 +63,32 @@ export default class GameOfLife {
     return result;
   }
 
+  // TODO: introduce object parameter for (row, col)?
   _calculateCellNextStateFor(row, col) {
     const aliveNeighbors = this._getAliveNeighborsFor(row, col);
-    // NumberRange class!
+
+    // TODO: NumberRange class!
     if (aliveNeighbors < 2) {
       return CELL_STATES.dead;
     }
-    if (aliveNeighbors >= 2 && aliveNeighbors <= 3) {
+    if (
+      this.grid[row][col].state === CELL_STATES.alive
+      && aliveNeighbors >= 2
+      && aliveNeighbors <= 3
+    ) {
+      return CELL_STATES.alive;
+    }
+    if (
+      this.grid[row][col].state === CELL_STATES.dead
+      && aliveNeighbors === 3
+    ) {
       return CELL_STATES.alive;
     }
     return CELL_STATES.dead;
   }
 
-  _getAliveNeighborsFor(row, cell) {
-    return this._getNeighborsFor(row, cell)
-      .filter(Boolean)
+  _getAliveNeighborsFor(row, col) {
+    return this._getNeighborsFor(row, col)
       .reduce(
         (result, aCell) => {
           if (aCell.state === CELL_STATES.alive) {
@@ -89,18 +100,19 @@ export default class GameOfLife {
       );
   }
 
-  _getNeighborsFor(row, cell) {
+  _getNeighborsFor(row, col) {
     return [
-      (this._grid[row - 1] || [])[cell - 1],
-      (this._grid[row - 1] || [])[cell],
-      (this._grid[row - 1] || [])[cell + 1],
+      (this.grid[row - 1] || [])[col - 1],
+      (this.grid[row - 1] || [])[col],
+      (this.grid[row - 1] || [])[col + 1],
 
-      this._grid[row][cell - 1],
-      this._grid[row][cell + 1],
+      this.grid[row][col - 1],
+      this.grid[row][col + 1],
 
-      (this._grid[row + 1] || [])[cell - 1],
-      (this._grid[row + 1] || [])[cell],
-      (this._grid[row + 1] || [])[cell - 1],
-    ];
+      (this.grid[row + 1] || [])[col - 1],
+      (this.grid[row + 1] || [])[col],
+      (this.grid[row + 1] || [])[col + 1],
+    ]
+      .filter(Boolean);
   }
 }
