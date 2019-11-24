@@ -84,3 +84,19 @@ it('Any live cell with more than three live neighbours dies, as if by overpopula
 
   expect(g.grid[1][1].state).toBe(CELL_STATES.dead);
 });
+
+it('Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.', () => {
+  const g = GameOfLife.createFromCells(
+    [
+      [CELL_STATES.alive, CELL_STATES.dead, CELL_STATES.alive],
+      [CELL_STATES.dead, CELL_STATES.dead, CELL_STATES.dead],
+      [CELL_STATES.alive, CELL_STATES.dead, CELL_STATES.dead],
+    ]
+  );
+
+  expect(g.grid[1][1].state).toBe(CELL_STATES.dead);
+
+  g.next();
+
+  expect(g.grid[1][1].state).toBe(CELL_STATES.alive);
+});
