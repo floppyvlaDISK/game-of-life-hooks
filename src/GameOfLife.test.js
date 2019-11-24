@@ -24,8 +24,9 @@ it('creates grid from array of cell values', () => {
 it('Any live cell with fewer than two live neighbours dies, as if by underpopulation.', () => {
   const g = GameOfLife.createFromCells(
     [
-      [CELL_STATES.dead, CELL_STATES.dead],
-      [CELL_STATES.dead, CELL_STATES.alive],
+      [CELL_STATES.dead, CELL_STATES.dead, CELL_STATES.dead],
+      [CELL_STATES.dead, CELL_STATES.alive, CELL_STATES.dead],
+      [CELL_STATES.dead, CELL_STATES.dead, CELL_STATES.dead],
     ]
   );
 
@@ -36,11 +37,28 @@ it('Any live cell with fewer than two live neighbours dies, as if by underpopula
   expect(g.grid[1][1].state).toBe(CELL_STATES.dead);
 });
 
-it('Any live cell with two or three live neighbours lives on to the next generation', () => {
+it('Any live cell with two live neighbours lives on to the next generation', () => {
   const g = GameOfLife.createFromCells(
     [
-      [CELL_STATES.alive, CELL_STATES.alive],
-      [CELL_STATES.alive, CELL_STATES.alive],
+      [CELL_STATES.alive, CELL_STATES.alive, CELL_STATES.dead],
+      [CELL_STATES.dead, CELL_STATES.alive, CELL_STATES.dead],
+      [CELL_STATES.dead, CELL_STATES.dead, CELL_STATES.dead],
+    ]
+  );
+
+  expect(g.grid[1][1].state).toBe(CELL_STATES.alive);
+
+  g.next();
+
+  expect(g.grid[1][1].state).toBe(CELL_STATES.alive);
+});
+
+it('Any live cell with three live neighbours lives on to the next generation', () => {
+  const g = GameOfLife.createFromCells(
+    [
+      [CELL_STATES.alive, CELL_STATES.dead, CELL_STATES],
+      [CELL_STATES.dead, CELL_STATES.alive, CELL_STATES.dead],
+      [CELL_STATES.alive, CELL_STATES.dead, CELL_STATES.alive],
     ]
   );
 
