@@ -35,3 +35,18 @@ it('Any live cell with fewer than two live neighbours dies, as if by underpopula
 
   expect(g.grid[1][1].state).toBe(CELL_STATES.dead);
 });
+
+it('Any live cell with two or three live neighbours lives on to the next generation', () => {
+  const g = GameOfLife.createFromCells(
+    [
+      [CELL_STATES.alive, CELL_STATES.alive],
+      [CELL_STATES.alive, CELL_STATES.alive],
+    ]
+  );
+
+  expect(g.grid[1][1].state).toBe(CELL_STATES.alive);
+
+  g.next();
+
+  expect(g.grid[1][1].state).toBe(CELL_STATES.alive);
+});
