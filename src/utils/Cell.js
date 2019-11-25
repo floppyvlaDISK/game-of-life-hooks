@@ -1,8 +1,10 @@
 import { CELL_STATES } from "../Grid/CONST";
+import Coordinate from "./Coordinate";
 
 export default class Cell {
-  constructor(state) {
+  constructor(state, x, y) {
     this._state = state || 0;
+    this._aCoordinate = new Coordinate(x, y);
   }
 
   static getRandomState() {
@@ -11,5 +13,13 @@ export default class Cell {
 
   get state() {
     return this._state;
+  }
+
+  get x() {
+    return this._aCoordinate.x;
+  }
+
+  get y() {
+    return this._aCoordinate.y;
   }
 }

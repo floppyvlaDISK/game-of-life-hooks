@@ -19,8 +19,9 @@ export default class GameOfLife {
   }
 
   next() {
-    const arrayOfCells = this._calcNextGenerationStates();
-    this._grid = GameOfLife._createGridFromCells(arrayOfCells);
+    this._grid = GameOfLife._createGridFromCells(
+      this._calcNextGenerationCellsStates()
+    );
   }
 
   static _createGridFromCells(arraysOfCells) {
@@ -29,7 +30,7 @@ export default class GameOfLife {
       let cellsForRow = [];
       for (let col = 0; col < arraysOfCells[row].length; col++) {
         cellsForRow.push(
-          new Cell(arraysOfCells[row][col])
+          new Cell(arraysOfCells[row][col], row, col)
         );
       }
       result.push(cellsForRow);
@@ -43,7 +44,7 @@ export default class GameOfLife {
       let cellsForRow = [];
       for (let col = 0; col < size; col++) {
         cellsForRow.push(
-          new Cell(Cell.getRandomState()),
+          new Cell(Cell.getRandomState(), row, col),
         );
       }
       result.push(cellsForRow);
@@ -51,35 +52,36 @@ export default class GameOfLife {
     return result;
   }
 
-  _calcNextGenerationStates() {
+  _calcNextGenerationCellsStates() {
     let result = [];
     for (let row = 0; row < this.grid.length; row++) {
       let cellValuesForRow = [];
       for (let col = 0; col < this.grid[row].length; col++) {
-        cellValuesForRow.push(this._calculateCellNextStateFor(row, col));
+        cellValuesForRow.push(
+          this._calculateCellNextStateFor(this.grid[row][col])
+        );
       }
       result.push(cellValuesForRow);
     }
     return result;
   }
 
-  // TODO: introduce object parameter for (row, col)?
-  _calculateCellNextStateFor(row, col) {
-    const aliveNeighbors = this._getAliveNeighborsFor(row, col);
+  _calculateCellNextStateFor(aCell) {
+    const aliveNeighbors = this._getAliveNeighborsFor(aCell);
 
     // TODO: NumberRange class!
     if (aliveNeighbors < 2) {
       return CELL_STATES.dead;
     }
     if (
-      this.grid[row][col].state === CELL_STATES.alive
+      aCell.state === CELL_STATES.alive
       && aliveNeighbors >= 2
       && aliveNeighbors <= 3
     ) {
       return CELL_STATES.alive;
     }
     if (
-      this.grid[row][col].state === CELL_STATES.dead
+      aCell.state === CELL_STATES.dead
       && aliveNeighbors === 3
     ) {
       return CELL_STATES.alive;
@@ -87,8 +89,8 @@ export default class GameOfLife {
     return CELL_STATES.dead;
   }
 
-  _getAliveNeighborsFor(row, col) {
-    return this._getNeighborsFor(row, col)
+  _getAliveNeighborsFor(aCell) {
+    return this._getNeighborsFor(aCell)
       .reduce(
         (result, aCell) => {
           if (aCell.state === CELL_STATES.alive) {
@@ -100,18 +102,18 @@ export default class GameOfLife {
       );
   }
 
-  _getNeighborsFor(row, col) {
+  _getNeighborsFor(aCell) {
     return [
-      (this.grid[row - 1] || [])[col - 1],
-      (this.grid[row - 1] || [])[col],
-      (this.grid[row - 1] || [])[col + 1],
+      (this.grid[aCell.x - 1] || [])[aCell.y - 1],
+      (this.grid[aCell.x - 1] || [])[aCell.y],
+      (this.grid[aCell.x - 1] || [])[aCell.y + 1],
 
-      this.grid[row][col - 1],
-      this.grid[row][col + 1],
+      this.grid[aCell.x][aCell.y - 1],
+      this.grid[aCell.x][aCell.y + 1],
 
-      (this.grid[row + 1] || [])[col - 1],
-      (this.grid[row + 1] || [])[col],
-      (this.grid[row + 1] || [])[col + 1],
+      (this.grid[aCell.x + 1] || [])[aCell.y - 1],
+      (this.grid[aCell.x + 1] || [])[aCell.y],
+      (this.grid[aCell.x + 1] || [])[aCell.y + 1],
     ]
       .filter(Boolean);
   }
