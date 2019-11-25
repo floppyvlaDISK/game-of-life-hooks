@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { CELL_STATES } from './CONST';
+import Cell from '../utils/Cell';
 
 const GridCell = styled.span.attrs({
   'data-testid': 'cell',
@@ -14,7 +14,7 @@ const GridCell = styled.span.attrs({
 `;
 
 function pickColorBasedOn(cellState) {
-  return cellState === CELL_STATES.alive
+  return cellState === Cell.STATE_ALIVE
     ? 'papayawhip'
     : 'palevioletred';
 }

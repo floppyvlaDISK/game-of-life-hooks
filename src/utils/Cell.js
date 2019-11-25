@@ -1,4 +1,3 @@
-import { CELL_STATES } from "../Grid/CONST";
 import Coordinate from "./Coordinate";
 
 export default class Cell {
@@ -7,8 +6,11 @@ export default class Cell {
     this._aCoordinate = new Coordinate(x, y);
   }
 
+  static STATE_ALIVE = 'alive'
+  static STATE_DEAD = 'dead';
+
   static getRandomState() {
-    return Math.random() > 0.5 ? CELL_STATES.dead : CELL_STATES.alive;
+    return Math.random() > 0.5 ? Cell.STATE_DEAD : Cell.STATE_ALIVE;
   }
 
   get state() {

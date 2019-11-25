@@ -1,5 +1,4 @@
 import Cell from './Cell';
-import { CELL_STATES } from '../Grid/CONST';
 import NumberRange from './NumberRange';
 
 export default class GameOfLife {
@@ -66,28 +65,28 @@ export default class GameOfLife {
     const aliveNeighbors = this._getAliveNeighborsFor(aCell);
 
     if (new NumberRange(0, 1).contains(aliveNeighbors)) {
-      return CELL_STATES.dead;
+      return Cell.STATE_DEAD;
     }
     if (
-      aCell.state === CELL_STATES.alive
+      aCell.state === Cell.STATE_ALIVE
       && new NumberRange(2, 3).contains(aliveNeighbors)
     ) {
-      return CELL_STATES.alive;
+      return Cell.STATE_ALIVE;
     }
     if (
-      aCell.state === CELL_STATES.dead
+      aCell.state === Cell.STATE_DEAD
       && new NumberRange(3, 3).contains(aliveNeighbors)
     ) {
-      return CELL_STATES.alive;
+      return Cell.STATE_ALIVE;
     }
-    return CELL_STATES.dead;
+    return Cell.STATE_DEAD;
   }
 
   _getAliveNeighborsFor(aCell) {
     return this._getNeighborsFor(aCell)
       .reduce(
         (result, aCell) => {
-          if (aCell.state === CELL_STATES.alive) {
+          if (aCell.state === Cell.STATE_ALIVE) {
             result += 1;
           }
           return result;

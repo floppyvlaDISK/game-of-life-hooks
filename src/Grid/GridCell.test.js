@@ -4,7 +4,7 @@ import { act } from "react-dom/test-utils"
 import 'jest-styled-components'
 
 import GridCell from './GridCell';
-import { CELL_STATES } from './CONST';
+import Cell from '../utils/Cell';
 import { sel } from '../utils/tests';
 
 let container = null;
@@ -23,7 +23,7 @@ it('renders without ctashing', () => {
 it('renders in "dead" state', () => {
   act(() => {
     render(
-      <GridCell cellState={CELL_STATES.dead} />,
+      <GridCell cellState={Cell.STATE_DEAD} />,
       container
     );
   });
@@ -35,7 +35,7 @@ it('renders in "dead" state', () => {
 it('rendres in "alive" state', () => {
   act(() => {
     render(
-      <GridCell cellState={CELL_STATES.alive} />,
+      <GridCell cellState={Cell.STATE_ALIVE} />,
       container,
     );
   });
