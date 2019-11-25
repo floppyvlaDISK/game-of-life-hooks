@@ -1,5 +1,5 @@
 import GameOfLife from './GameOfLife';
-import { CELL_STATES } from './Grid/CONST';
+import { CELL_STATES } from '../Grid/CONST';
 
 it('creates grid with random cells from size', () => {
   const g = GameOfLife.createFromSize(3);

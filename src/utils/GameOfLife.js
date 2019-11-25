@@ -1,5 +1,5 @@
 import Cell from './Cell';
-import { CELL_STATES } from './Grid/CONST';
+import { CELL_STATES } from '../Grid/CONST';
 
 export default class GameOfLife {
   constructor(grid) {
@@ -12,6 +12,15 @@ export default class GameOfLife {
 
   static createFromSize(size) {
     return new this(GameOfLife._createGridFromSize(size));
+  }
+
+  get grid() {
+    return this._grid;
+  }
+
+  next() {
+    const arrayOfCells = this._calcNextGenerationStates();
+    this._grid = GameOfLife._createGridFromCells(arrayOfCells);
   }
 
   static _createGridFromCells(arraysOfCells) {
@@ -40,15 +49,6 @@ export default class GameOfLife {
       result.push(cellsForRow);
     }
     return result;
-  }
-
-  get grid() {
-    return this._grid;
-  }
-
-  next() {
-    const arrayOfCells = this._calcNextGenerationStates();
-    this._grid = GameOfLife._createGridFromCells(arrayOfCells);
   }
 
   _calcNextGenerationStates() {

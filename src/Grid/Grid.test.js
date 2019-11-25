@@ -2,7 +2,7 @@ import React from 'react';
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils"
 
-import GameOfLife from '../GameOfLife';
+import GameOfLife from '../utils/GameOfLife';
 import Grid from "./Grid";
 import { sel } from '../utils/tests';
 

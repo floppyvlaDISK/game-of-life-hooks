@@ -1,4 +1,4 @@
-import { CELL_STATES } from "./Grid/CONST";
+import { CELL_STATES } from "../Grid/CONST";
 
 export default class Cell {
   constructor(state) {
