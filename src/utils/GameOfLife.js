@@ -7,6 +7,7 @@ export default class GameOfLife {
     this._grid = grid;
   }
 
+  // TODO: Change this to specify that grid is created from cell states not cells themselves
   static createFromCells(arraysOfCells) {
     return new this(GameOfLife._createGridFromCells(arraysOfCells));
   }
@@ -21,53 +22,47 @@ export default class GameOfLife {
 
   next() {
     this._grid = GameOfLife._createGridFromCells(
-      this._calcNextGenerationCellsStates()
+      this._calcNextCellsGeneration()
     );
   }
 
   static _createGridFromCells(arraysOfCells) {
-    let result = [];
-    for (let row = 0; row < arraysOfCells.length; row++) {
-      let cellsForRow = [];
-      for (let col = 0; col < arraysOfCells[row].length; col++) {
-        cellsForRow.push(
-          new Cell(arraysOfCells[row][col], row, col)
+    return arraysOfCells.reduce(
+      (result, rowOfCellStates, x) => {
+        const rowOfCells = rowOfCellStates.map(
+          (cellState, y) => new Cell(cellState, x, y)
         );
-      }
-      result.push(cellsForRow);
-    }
-    return result;
+        return [...result, rowOfCells];
+      },
+      []
+    );
   }
 
   static _createGridFromSize(size) {
     let result = [];
-    for (let row = 0; row < size; row++) {
-      let cellsForRow = [];
-      for (let col = 0; col < size; col++) {
-        cellsForRow.push(
-          new Cell(Cell.getRandomState(), row, col),
-        );
+    for (let x = 0; x < size; x++) {
+      let rowOfCells = [];
+      for (let y = 0; y < size; y++) {
+        rowOfCells.push(new Cell(Cell.getRandomState(), x, y));
       }
-      result.push(cellsForRow);
+      result.push(rowOfCells);
     }
     return result;
   }
 
-  _calcNextGenerationCellsStates() {
-    let result = [];
-    for (let row = 0; row < this.grid.length; row++) {
-      let cellValuesForRow = [];
-      for (let col = 0; col < this.grid[row].length; col++) {
-        cellValuesForRow.push(
-          this._calculateCellNextStateFor(this.grid[row][col])
+  _calcNextCellsGeneration() {
+    return this.grid.reduce(
+      (result, rowOfCells) => {
+        const rowOfCellsNextStates = rowOfCells.map(
+          aCell => this._calculateNextStateFor(aCell)
         );
-      }
-      result.push(cellValuesForRow);
-    }
-    return result;
+        return [...result, rowOfCellsNextStates];
+      },
+      []
+    );
   }
 
-  _calculateCellNextStateFor(aCell) {
+  _calculateNextStateFor(aCell) {
     const aliveNeighbors = this._getAliveNeighborsFor(aCell);
 
     if (new NumberRange(0, 1).contains(aliveNeighbors)) {
