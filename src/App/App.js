@@ -15,7 +15,7 @@ function App() {
   return (
     <AppContentWrapper>
       <GameBoard grid={grid} />
-      <Button onClick={toggleIsGameOn}>
+      <Button onClick={toggleIsGameOn} data-testid="game-toggler">
         {isGameOn ? 'Pause' : 'Start'}
       </Button>
       <Button onClick={resetGame} secondary>
