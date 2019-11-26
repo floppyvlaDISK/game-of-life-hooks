@@ -50,7 +50,7 @@ export default class GameOfLife {
   }
 
   _calcNextCellStatesGrid() {
-    return this.grid.reduce(
+    return this._grid.reduce(
       (result, rowOfCells) => {
         const rowOfCellsNextStates = rowOfCells.map(
           aCell => this._calculateNextStateFor(aCell)
@@ -89,16 +89,6 @@ export default class GameOfLife {
 
   _getNeighborsFor(aCell) {
     const aGrid = new Grid(this._grid);
-    return [
-      aGrid.at(aCell.x - 1, aCell.y - 1),
-      aGrid.at(aCell.x - 1, aCell.y),
-      aGrid.at(aCell.x - 1, aCell.y + 1),
-      aGrid.at(aCell.x, aCell.y - 1),
-      aGrid.at(aCell.x, aCell.y + 1),
-      aGrid.at(aCell.x + 1, aCell.y - 1),
-      aGrid.at(aCell.x + 1, aCell.y),
-      aGrid.at(aCell.x + 1, aCell.y + 1),
-    ]
-      .filter(Boolean);
+    return aGrid.getNeighborsFor(aCell.x, aCell.y);
   }
 }
