@@ -6,13 +6,12 @@ export default class GameOfLife {
     this._grid = grid;
   }
 
-  // TODO: Change this to specify that grid is created from cell states not cells themselves
-  static createFromCells(arraysOfCells) {
-    return new this(GameOfLife._createGridFromCells(arraysOfCells));
+  static createFromCellStatesGrid(cellStatesGrid) {
+    return new this(GameOfLife._mapCellStatesToTheCells(cellStatesGrid));
   }
 
   static createFromSize(size) {
-    return new this(GameOfLife._createGridFromSize(size));
+    return new this(GameOfLife._mapRandomCellStatesToTheCells(size));
   }
 
   get grid() {
@@ -20,13 +19,13 @@ export default class GameOfLife {
   }
 
   next() {
-    this._grid = GameOfLife._createGridFromCells(
-      this._calcNextCellsGeneration()
+    this._grid = GameOfLife._mapCellStatesToTheCells(
+      this._calcNextCellStatesGrid()
     );
   }
 
-  static _createGridFromCells(arraysOfCells) {
-    return arraysOfCells.reduce(
+  static _mapCellStatesToTheCells(cellStatesGrid) {
+    return cellStatesGrid.reduce(
       (result, rowOfCellStates, x) => {
         const rowOfCells = rowOfCellStates.map(
           (cellState, y) => new Cell(cellState, x, y)
@@ -37,7 +36,7 @@ export default class GameOfLife {
     );
   }
 
-  static _createGridFromSize(size) {
+  static _mapRandomCellStatesToTheCells(size) {
     let result = [];
     for (let x = 0; x < size; x++) {
       let rowOfCells = [];
@@ -49,7 +48,7 @@ export default class GameOfLife {
     return result;
   }
 
-  _calcNextCellsGeneration() {
+  _calcNextCellStatesGrid() {
     return this.grid.reduce(
       (result, rowOfCells) => {
         const rowOfCellsNextStates = rowOfCells.map(
@@ -63,7 +62,6 @@ export default class GameOfLife {
 
   _calculateNextStateFor(aCell) {
     const aliveNeighbors = this._getAliveNeighborsFor(aCell);
-
     if (new NumberRange(0, 1).contains(aliveNeighbors)) {
       return Cell.STATE_DEAD;
     }
@@ -84,15 +82,8 @@ export default class GameOfLife {
 
   _getAliveNeighborsFor(aCell) {
     return this._getNeighborsFor(aCell)
-      .reduce(
-        (result, aCell) => {
-          if (aCell.state === Cell.STATE_ALIVE) {
-            result += 1;
-          }
-          return result;
-        },
-        0,
-      );
+      .filter(aCell => aCell.state === Cell.STATE_ALIVE)
+      .length;
   }
 
   _getNeighborsFor(aCell) {
@@ -100,10 +91,8 @@ export default class GameOfLife {
       (this.grid[aCell.x - 1] || [])[aCell.y - 1],
       (this.grid[aCell.x - 1] || [])[aCell.y],
       (this.grid[aCell.x - 1] || [])[aCell.y + 1],
-
       this.grid[aCell.x][aCell.y - 1],
       this.grid[aCell.x][aCell.y + 1],
-
       (this.grid[aCell.x + 1] || [])[aCell.y - 1],
       (this.grid[aCell.x + 1] || [])[aCell.y],
       (this.grid[aCell.x + 1] || [])[aCell.y + 1],

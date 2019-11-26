@@ -9,7 +9,7 @@ it('creates grid with random cells from size', () => {
 });
 
 it('creates grid from array of cell values', () => {
-  const g = GameOfLife.createFromCells(
+  const g = GameOfLife.createFromCellStatesGrid(
     [
       [Cell.STATE_DEAD, Cell.STATE_ALIVE, Cell.STATE_ALIVE],
       [Cell.STATE_ALIVE, Cell.STATE_ALIVE, Cell.STATE_DEAD],
@@ -22,7 +22,7 @@ it('creates grid from array of cell values', () => {
 });
 
 it('Any live cell with fewer than two live neighbours dies, as if by underpopulation.', () => {
-  const g = GameOfLife.createFromCells(
+  const g = GameOfLife.createFromCellStatesGrid(
     [
       [Cell.STATE_DEAD, Cell.STATE_DEAD, Cell.STATE_DEAD],
       [Cell.STATE_DEAD, Cell.STATE_ALIVE, Cell.STATE_DEAD],
@@ -38,7 +38,7 @@ it('Any live cell with fewer than two live neighbours dies, as if by underpopula
 });
 
 it('Any live cell with two live neighbours lives on to the next generation', () => {
-  const g = GameOfLife.createFromCells(
+  const g = GameOfLife.createFromCellStatesGrid(
     [
       [Cell.STATE_ALIVE, Cell.STATE_ALIVE, Cell.STATE_DEAD],
       [Cell.STATE_DEAD, Cell.STATE_ALIVE, Cell.STATE_DEAD],
@@ -54,7 +54,7 @@ it('Any live cell with two live neighbours lives on to the next generation', () 
 });
 
 it('Any live cell with three live neighbours lives on to the next generation', () => {
-  const g = GameOfLife.createFromCells(
+  const g = GameOfLife.createFromCellStatesGrid(
     [
       [Cell.STATE_ALIVE, Cell.STATE_DEAD, Cell.STATE_DEAD],
       [Cell.STATE_DEAD, Cell.STATE_ALIVE, Cell.STATE_DEAD],
@@ -70,7 +70,7 @@ it('Any live cell with three live neighbours lives on to the next generation', (
 });
 
 it('Any live cell with more than three live neighbours dies, as if by overpopulation.', () => {
-  const g = GameOfLife.createFromCells(
+  const g = GameOfLife.createFromCellStatesGrid(
     [
       [Cell.STATE_ALIVE, Cell.STATE_DEAD, Cell.STATE_ALIVE],
       [Cell.STATE_DEAD, Cell.STATE_ALIVE, Cell.STATE_DEAD],
@@ -86,7 +86,7 @@ it('Any live cell with more than three live neighbours dies, as if by overpopula
 });
 
 it('Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.', () => {
-  const g = GameOfLife.createFromCells(
+  const g = GameOfLife.createFromCellStatesGrid(
     [
       [Cell.STATE_ALIVE, Cell.STATE_DEAD, Cell.STATE_ALIVE],
       [Cell.STATE_DEAD, Cell.STATE_DEAD, Cell.STATE_DEAD],
