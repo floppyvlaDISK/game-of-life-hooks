@@ -14,7 +14,7 @@ export default class Grid {
       this._at(x + 1, y),
       this._at(x + 1, y + 1),
     ]
-      .filter(Boolean);
+      .filter(v => typeof v !== 'undefined');
   }
 
   _at(x, y) {
