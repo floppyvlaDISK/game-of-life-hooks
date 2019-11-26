@@ -10,5 +10,6 @@ export default function useGameOfLife(size) {
     grid: aGame.grid,
     isGameOn,
     toggleIsGameOn: () => setIsGameOn(!isGameOn),
+    resetGame: () => setIsGameOn(false),
   };
 }

@@ -9,7 +9,7 @@ it('generates board of size n', () => {
   expect(result.current.grid[0]).toHaveLength(n);
 });
 
-it('should update cells on next step', () => {
+it('toggles isGameOn', () => {
   const { result } = renderHook(() => useGameOfLife(3));
 
   expect(result.current.isGameOn).toBe(false);
@@ -19,4 +19,17 @@ it('should update cells on next step', () => {
   });
 
   expect(result.current.isGameOn).toBe(true);
+});
+
+it('resets isGameOn', () => {
+  const { result } = renderHook(() => useGameOfLife(3));
+
+  act(() => {
+    result.current.toggleIsGameOn();
+  });
+  act(() => {
+    result.current.resetGame();
+  });
+
+  expect(result.current.isGameOn).toBe(false);
 });
