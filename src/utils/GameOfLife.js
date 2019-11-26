@@ -1,5 +1,6 @@
-import Cell from './Cell';
 import NumberRange from './NumberRange';
+import Cell from './Cell';
+import Grid from './Grid';
 
 export default class GameOfLife {
   constructor(grid) {
@@ -87,15 +88,16 @@ export default class GameOfLife {
   }
 
   _getNeighborsFor(aCell) {
+    const aGrid = new Grid(this._grid);
     return [
-      (this.grid[aCell.x - 1] || [])[aCell.y - 1],
-      (this.grid[aCell.x - 1] || [])[aCell.y],
-      (this.grid[aCell.x - 1] || [])[aCell.y + 1],
-      this.grid[aCell.x][aCell.y - 1],
-      this.grid[aCell.x][aCell.y + 1],
-      (this.grid[aCell.x + 1] || [])[aCell.y - 1],
-      (this.grid[aCell.x + 1] || [])[aCell.y],
-      (this.grid[aCell.x + 1] || [])[aCell.y + 1],
+      aGrid.at(aCell.x - 1, aCell.y - 1),
+      aGrid.at(aCell.x - 1, aCell.y),
+      aGrid.at(aCell.x - 1, aCell.y + 1),
+      aGrid.at(aCell.x, aCell.y - 1),
+      aGrid.at(aCell.x, aCell.y + 1),
+      aGrid.at(aCell.x + 1, aCell.y - 1),
+      aGrid.at(aCell.x + 1, aCell.y),
+      aGrid.at(aCell.x + 1, aCell.y + 1),
     ]
       .filter(Boolean);
   }
