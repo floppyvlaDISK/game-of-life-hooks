@@ -3,7 +3,7 @@ import React from 'react';
 import { GameBoard } from '../GameBoard';
 import { Button } from '../Button';
 import AppContentWrapper from './AppContentWrapper';
-import useGameOfLife from '../useGameOfLife';
+import useGameOfLife from './useGameOfLife';
 
 function App() {
   const [grid, isGameOn, toggleIsGameOn, resetGame] = useGameOfLife(50);
