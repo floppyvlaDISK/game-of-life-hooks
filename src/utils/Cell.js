@@ -1,4 +1,5 @@
 import Coordinate from "./Coordinate";
+import NumberRange from "./NumberRange";
 
 export default class Cell {
   constructor(state, x, y) {
@@ -23,5 +24,24 @@ export default class Cell {
 
   get y() {
     return this._aCoordinate.y;
+  }
+
+  calculateNextState(aliveNeighbors) {
+    if (new NumberRange(0, 1).contains(aliveNeighbors)) {
+      return Cell.STATE_DEAD;
+    }
+    if (
+      this._state === Cell.STATE_ALIVE
+      && new NumberRange(2, 3).contains(aliveNeighbors)
+    ) {
+      return Cell.STATE_ALIVE;
+    }
+    if (
+      this._state === Cell.STATE_DEAD
+      && new NumberRange(3, 3).contains(aliveNeighbors)
+    ) {
+      return Cell.STATE_ALIVE;
+    }
+    return Cell.STATE_DEAD;
   }
 }
