@@ -7,6 +7,7 @@ const AppWrapper = styled.div`
   height: 100vh;
   width: 100vw;
   user-select: none;
+  background-color: black;
 `;
 
 export default AppWrapper;

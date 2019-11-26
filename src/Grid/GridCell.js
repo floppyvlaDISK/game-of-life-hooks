@@ -5,8 +5,8 @@ import Cell from '../utils/Cell';
 const GridCell = styled.span.attrs({
   'data-testid': 'cell',
 })`
-  width: 100px;
-  height: 100px;
+  width: 12px;
+  height: 12px;
   display: inline-block;
   margin-left: 5px;
   margin-bottom: 5px;
