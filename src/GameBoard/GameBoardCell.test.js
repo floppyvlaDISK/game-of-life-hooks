@@ -3,7 +3,7 @@ import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils"
 import 'jest-styled-components'
 
-import GridCell from './GridCell';
+import GameBoardCell from './GameBoardCell';
 import Cell from '../utils/Cell';
 import { sel } from '../utils/tests';
 
@@ -16,14 +16,14 @@ beforeEach(() => {
 
 it('renders without ctashing', () => {
   act(() => {
-    render(<GridCell />, container);
+    render(<GameBoardCell />, container);
   });
 });
 
 it('renders in "dead" state', () => {
   act(() => {
     render(
-      <GridCell cellState={Cell.STATE_DEAD} />,
+      <GameBoardCell cellState={Cell.STATE_DEAD} />,
       container
     );
   });
@@ -35,7 +35,7 @@ it('renders in "dead" state', () => {
 it('rendres in "alive" state', () => {
   act(() => {
     render(
-      <GridCell cellState={Cell.STATE_ALIVE} />,
+      <GameBoardCell cellState={Cell.STATE_ALIVE} />,
       container,
     );
   });

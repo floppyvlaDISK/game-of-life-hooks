@@ -1,22 +1,22 @@
 import React from 'react';
 
-import GridRow from './GridRow';
-import GridCell from './GridCell';
+import GameBoardRow from './GameBoardRow';
+import GameBoardCell from './GameBoardCell';
 
-function Grid(props) {
+function GameBoard(props) {
   return props.grid.map((row, index) => (
-    <GridRow
+    <GameBoardRow
       cells={row.cells}
       key={index}
     >
       {row.map((cell, index) => (
-        <GridCell
+        <GameBoardCell
           key={index}
           cellState={cell.state}
         />
       ))}
-    </GridRow>
+    </GameBoardRow>
   ));
 }
 
-export default Grid;
+export default GameBoard;

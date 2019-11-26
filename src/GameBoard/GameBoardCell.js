@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import Cell from '../utils/Cell';
 
-const GridCell = styled.span.attrs({
+const GameBoardCell = styled.span.attrs({
   'data-testid': 'cell',
 })`
   width: 12px;
@@ -19,4 +19,4 @@ function pickColorBasedOn(cellState) {
     : 'palevioletred';
 }
 
-export default GridCell;
+export default GameBoardCell;

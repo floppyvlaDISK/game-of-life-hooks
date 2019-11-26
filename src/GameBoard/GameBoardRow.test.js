@@ -2,9 +2,7 @@ import React from 'react';
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils"
 
-import GameOfLife from '../utils/GameOfLife';
-import Grid from "./Grid";
-import { sel } from '../utils/tests';
+import GameBoardRow from "./GameBoardRow";
 
 let container = null;
 
@@ -15,22 +13,8 @@ beforeEach(() => {
 
 it('renders without crashing', () => {
   act(() => {
-    render(<Grid grid={[]} />, container);
+    render(<GameBoardRow cells={[]} />, container);
   });
-});
-
-it('renders cells based on size prop', () => {
-  const size = 5;
-  act(() => {
-    render(
-      <Grid
-        grid={GameOfLife.createFromSize(5).grid}
-      />,
-      container
-    );
-  });
-
-  expect(container.querySelectorAll(sel('cell'))).toHaveLength(size * size);
 });
 
 afterEach(() => {
