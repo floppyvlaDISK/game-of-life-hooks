@@ -2,13 +2,13 @@ import React from 'react';
 
 import { GameBoard } from '../GameBoard';
 import { Button } from '../Button';
-import AppWrapper from './AppWrapper';
+import AppContentWrapper from './AppContentWrapper';
 import useGameOfLife from '../useGameOfLife';
 
 function App() {
   const [grid, isGameOn, toggleIsGameOn, resetGame] = useGameOfLife(50);
   return (
-    <AppWrapper>
+    <AppContentWrapper>
       <GameBoard grid={grid} />
       <Button onClick={toggleIsGameOn}>
         {isGameOn ? 'Pause' : 'Start'}
@@ -16,7 +16,7 @@ function App() {
       <Button onClick={resetGame} secondary>
         Reset
       </Button>
-    </AppWrapper>
+    </AppContentWrapper>
   );
 }
 
