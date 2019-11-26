@@ -23,13 +23,27 @@ it('changes button text on game toggle', () => {
     render(<App />, container);
   });
 
-  expect(getGameToggler().textContent).toBe('Start');
+  expect(getGameToggleButton().textContent).toBe('Start');
 
   act(() => {
-    getGameToggler().dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    simulateGameToggleButtonClick();
   });
 
-  expect(getGameToggler().textContent).toBe('Pause');
+  expect(getGameToggleButton().textContent).toBe('Pause');
+});
+
+it('resets button text on game reset', () => {
+  act(() => {
+    render(<App />, container);
+  });
+  act(() => {
+    simulateGameToggleButtonClick();
+  });
+  act(() => {
+    simulateGameResetButtonClick();
+  });
+
+  expect(getGameToggleButton().textContent).toBe('Start');
 });
 
 afterEach(() => {
@@ -38,6 +52,18 @@ afterEach(() => {
   container = null;
 });
 
-function getGameToggler() {
-  return container.querySelector(sel('game-toggler'));
+function getGameToggleButton() {
+  return container.querySelector(sel('game-toggle-button'));
+}
+function getGameResetButton() {
+  return container.querySelector(sel('game-reset-button'));
+}
+function simulateGameToggleButtonClick() {
+  simulateButtonClick(getGameToggleButton());
+}
+function simulateGameResetButtonClick() {
+  simulateButtonClick(getGameResetButton());
+}
+function simulateButtonClick(button) {
+  button.dispatchEvent(new MouseEvent('click', { bubbles: true }));
 }

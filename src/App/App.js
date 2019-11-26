@@ -15,10 +15,10 @@ function App() {
   return (
     <AppContentWrapper>
       <GameBoard grid={grid} />
-      <Button onClick={toggleIsGameOn} data-testid="game-toggler">
+      <Button onClick={toggleIsGameOn} data-testid="game-toggle-button">
         {isGameOn ? 'Pause' : 'Start'}
       </Button>
-      <Button onClick={resetGame} secondary>
+      <Button onClick={resetGame} secondary data-testid="game-reset-button">
         Reset
       </Button>
     </AppContentWrapper>
