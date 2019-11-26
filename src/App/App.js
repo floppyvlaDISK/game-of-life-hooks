@@ -6,7 +6,12 @@ import AppContentWrapper from './AppContentWrapper';
 import useGameOfLife from './useGameOfLife';
 
 function App() {
-  const [grid, isGameOn, toggleIsGameOn, resetGame] = useGameOfLife(50);
+  const {
+    grid,
+    isGameOn,
+    toggleIsGameOn,
+    resetGame
+  } = useGameOfLife(50);
   return (
     <AppContentWrapper>
       <GameBoard grid={grid} />
