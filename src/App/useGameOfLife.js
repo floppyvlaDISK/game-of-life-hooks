@@ -15,6 +15,8 @@ export default function useGameOfLife(size) {
 
   function toggleIsGameOn() {
     setIsGameOn(!isGameOn);
-    theGame.next();
+    if (!isGameOn) {
+      theGame.next();
+    }
   }
 }

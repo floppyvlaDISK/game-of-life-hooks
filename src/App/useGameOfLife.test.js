@@ -3,9 +3,9 @@ import { renderHook, act } from '@testing-library/react-hooks';
 import GameOfLife from '../utils/GameOfLife';
 import useGameOfLife from './useGameOfLife';
 
-let spy;
+let nextSpy;
 beforeEach(() => {
-  spy = jest.spyOn(GameOfLife.prototype, 'next');
+  nextSpy = jest.spyOn(GameOfLife.prototype, 'next');
 });
 
 afterEach(() => {
@@ -52,7 +52,13 @@ it('goes to next game generation on isGameOn set to true', () => {
     result.current.toggleIsGameOn();
   });
 
-  expect(spy).toHaveBeenCalledTimes(1);
+  expect(nextSpy).toHaveBeenCalledTimes(1);
+
+  act(() => {
+    result.current.toggleIsGameOn();
+  });
+
+  expect(nextSpy).toHaveBeenCalledTimes(1);
 });
 
 it.skip('sets interval to next game generation on isGameOn set to true', () => {
