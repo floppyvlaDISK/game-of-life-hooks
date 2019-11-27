@@ -5,10 +5,12 @@ import useGameOfLife from './useGameOfLife';
 
 let nextSpy;
 beforeEach(() => {
+  jest.useFakeTimers();
   nextSpy = jest.spyOn(GameOfLife.prototype, 'next');
 });
 
 afterEach(() => {
+  jest.clearAllTimers();
   jest.restoreAllMocks();
 });
 
@@ -45,7 +47,7 @@ it('resets isGameOn', () => {
   expect(result.current.isGameOn).toBe(false);
 });
 
-it('goes to next game generation on isGameOn set to true', () => {
+it('calls next() on isGameOn set to true', () => {
   const { result } = renderHook(() => useGameOfLife(3));
 
   act(() => {
@@ -53,14 +55,47 @@ it('goes to next game generation on isGameOn set to true', () => {
   });
 
   expect(nextSpy).toHaveBeenCalledTimes(1);
+});
 
+it('does not call next() on isGameOn set to false', () => {
+  const { result } = renderHook(() => useGameOfLife(3));
+
+  act(() => {
+    result.current.toggleIsGameOn();
+  });
   act(() => {
     result.current.toggleIsGameOn();
   });
 
   expect(nextSpy).toHaveBeenCalledTimes(1);
+})
+
+it('sets interval to call next() every second on isGameOn set to true', () => {
+  const { result } = renderHook(() => useGameOfLife(3));
+
+  act(() => {
+    result.current.toggleIsGameOn();
+  });
+
+  jest.advanceTimersByTime(3000);
+
+  expect(nextSpy).toHaveBeenCalledTimes(4);
 });
 
-it.skip('sets interval to next game generation on isGameOn set to true', () => {
+it('does not call next() after interval on isGameOn set to false', () => {
+  const { result } = renderHook(() => useGameOfLife(3));
 
-});
+  act(() => {
+    result.current.toggleIsGameOn();
+  });
+
+  jest.advanceTimersByTime(500);
+
+  act(() => {
+    result.current.toggleIsGameOn();
+  });
+
+  jest.advanceTimersByTime(500);
+
+  expect(nextSpy).toHaveBeenCalledTimes(1);
+})
