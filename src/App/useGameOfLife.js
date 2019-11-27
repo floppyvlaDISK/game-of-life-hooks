@@ -4,12 +4,16 @@ import GameOfLife from '../utils/GameOfLife';
 
 export default function useGameOfLife(size) {
   const [isGameOn, setIsGameOn] = useState(false);
-  const [aGame] = useState(GameOfLife.createFromSize(size));
+  const [theGame] = useState(GameOfLife.createFromSize(size));
 
   return {
-    grid: aGame.grid,
+    grid: theGame.grid,
     isGameOn,
-    toggleIsGameOn: () => setIsGameOn(!isGameOn),
+    toggleIsGameOn,
     resetGame: () => setIsGameOn(false),
   };
+
+  function toggleIsGameOn() {
+    setIsGameOn(!isGameOn);
+  }
 }
