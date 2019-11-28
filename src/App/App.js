@@ -11,7 +11,7 @@ function App() {
     isGameOn,
     toggleIsGameOn,
     resetGame,
-    clearGrid,
+    clearGame,
   } = useGameOfLife(50);
   return (
     <AppContentWrapper>
@@ -22,7 +22,7 @@ function App() {
       <Button onClick={resetGame} secondary data-testid="game-reset-button">
         Reset
       </Button>
-      <Button onClick={clearGrid}>Clear</Button>
+      <Button onClick={clearGame}>Clear</Button>
     </AppContentWrapper>
   );
 }
