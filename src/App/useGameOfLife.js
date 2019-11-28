@@ -5,6 +5,7 @@ import GameOfLife from '../utils/GameOfLife';
 export default function useGameOfLife(size) {
   const [isGameOn, setIsGameOn] = useState(false);
   const [theGame] = useState(GameOfLife.createFromSize(size));
+  const [grid, setGrid] = useState(theGame.grid);
 
   useEffect(() => {
     next();
@@ -14,12 +15,13 @@ export default function useGameOfLife(size) {
     function next() {
       if (isGameOn) {
         theGame.next();
+        setGrid(theGame.grid);
       }
     }
   }, [isGameOn, theGame]);
 
   return {
-    grid: theGame.grid,
+    grid,
     isGameOn,
     toggleIsGameOn,
     resetGame,
