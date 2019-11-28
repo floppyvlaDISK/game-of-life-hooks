@@ -31,6 +31,7 @@ export default function useGameOfLife(size) {
     toggleIsGameOn,
     resetGame,
     clearGame,
+    // TODO: Implement manual next() calling, disable if game is on
   };
 
   function toggleIsGameOn() {

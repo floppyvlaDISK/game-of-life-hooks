@@ -4,9 +4,14 @@ import GameOfLife from '../utils/GameOfLife';
 import useGameOfLife, { STEP_INTERVAL_IN_MS } from './useGameOfLife';
 
 let nextSpy;
+let clearSpy;
+let createFromSizeSpy;
+
 beforeEach(() => {
   jest.useFakeTimers();
   nextSpy = jest.spyOn(GameOfLife.prototype, 'next');
+  clearSpy = jest.spyOn(GameOfLife.prototype, 'clear');
+  createFromSizeSpy = jest.spyOn(GameOfLife, 'createFromSize');
 });
 
 afterEach(() => {
@@ -87,4 +92,25 @@ it('does not call next() after interval on isGameOn set to false', () => {
   });
 
   expect(nextSpy).toHaveBeenCalledTimes(1);
-})
+});
+
+it('resets game instance on resetGame', () => {
+  const { result } = renderHook(() => useGameOfLife(3));
+
+  act(() => {
+    result.current.resetGame();
+  });
+
+  // FIXME: Why 3 and not 2?
+  expect(createFromSizeSpy).toHaveBeenCalledTimes(3);
+});
+
+it('calls clear() on clearGame', () => {
+  const { result } = renderHook(() => useGameOfLife(3));
+
+  act(() => {
+    result.current.clearGame();
+  });
+
+  expect(clearSpy).toHaveBeenCalledTimes(1);
+});

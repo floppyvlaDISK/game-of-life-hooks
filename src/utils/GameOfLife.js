@@ -24,6 +24,10 @@ export default class GameOfLife {
     );
   }
 
+  clear() {
+    console.log('TODO:');
+  }
+
   static _mapCellStatesToTheCells(cellStatesGrid) {
     return cellStatesGrid.reduce(
       (result, rowOfCellStates, x) => {
