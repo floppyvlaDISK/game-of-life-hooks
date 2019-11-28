@@ -1,7 +1,7 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 
 import GameOfLife from '../utils/GameOfLife';
-import useGameOfLife from './useGameOfLife';
+import useGameOfLife, { STEP_INTERVAL_IN_MS } from './useGameOfLife';
 
 let nextSpy;
 beforeEach(() => {
@@ -10,7 +10,6 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  jest.clearAllTimers();
   jest.restoreAllMocks();
 });
 
@@ -39,8 +38,6 @@ it('resets isGameOn', () => {
 
   act(() => {
     result.current.toggleIsGameOn();
-  });
-  act(() => {
     result.current.resetGame();
   });
 
@@ -62,8 +59,6 @@ it('does not call next() on isGameOn set to false', () => {
 
   act(() => {
     result.current.toggleIsGameOn();
-  });
-  act(() => {
     result.current.toggleIsGameOn();
   });
 
@@ -75,9 +70,8 @@ it('sets interval to call next() every second on isGameOn set to true', () => {
 
   act(() => {
     result.current.toggleIsGameOn();
+    jest.advanceTimersByTime(STEP_INTERVAL_IN_MS * 3);
   });
-
-  jest.advanceTimersByTime(3000);
 
   expect(nextSpy).toHaveBeenCalledTimes(4);
 });
@@ -87,15 +81,10 @@ it('does not call next() after interval on isGameOn set to false', () => {
 
   act(() => {
     result.current.toggleIsGameOn();
-  });
-
-  jest.advanceTimersByTime(500);
-
-  act(() => {
+    jest.advanceTimersByTime(STEP_INTERVAL_IN_MS / 2);
     result.current.toggleIsGameOn();
+    jest.advanceTimersByTime(STEP_INTERVAL_IN_MS / 2);
   });
-
-  jest.advanceTimersByTime(500);
 
   expect(nextSpy).toHaveBeenCalledTimes(1);
 })

@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 
 import GameOfLife from '../utils/GameOfLife';
 
+export const STEP_INTERVAL_IN_MS = 500;
+
 export default function useGameOfLife(size) {
   const [isGameOn, setIsGameOn] = useState(false);
   const [theGame] = useState(GameOfLife.createFromSize(size));
@@ -9,7 +11,10 @@ export default function useGameOfLife(size) {
 
   useEffect(() => {
     next();
-    const id = setInterval(next, 1000);
+    let id;
+    if (isGameOn) {
+      id = setInterval(next, 500);
+    }
     return () => clearInterval(id);
 
     function next() {
