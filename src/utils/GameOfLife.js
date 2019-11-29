@@ -25,7 +25,9 @@ export default class GameOfLife {
   }
 
   clear() {
-    console.log('TODO:');
+    this._grid = GameOfLife._mapCellStatesToTheCells(
+      this._setAllCellStatesToDead()
+    );
   }
 
   static _mapCellStatesToTheCells(cellStatesGrid) {
@@ -59,6 +61,18 @@ export default class GameOfLife {
           aCell => this._calculateNextStateFor(aCell)
         );
         return [...result, rowOfCellsNextStates];
+      },
+      []
+    );
+  }
+
+  _setAllCellStatesToDead() {
+    return this._grid.reduce(
+      (result, rowOfCells) => {
+        const rowOfDeadCells = rowOfCells.map(
+          _ => Cell.STATE_DEAD,
+        );
+        return [...result, rowOfDeadCells];
       },
       []
     );

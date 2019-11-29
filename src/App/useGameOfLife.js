@@ -11,17 +11,20 @@ export default function useGameOfLife(size) {
 
   useEffect(() => {
     next();
-    let id;
-    if (isGameOn) {
-      id = setInterval(next, 500);
-    }
-    return () => clearInterval(id);
+    return scheduleNext();
 
     function next() {
       if (isGameOn) {
         theGame.next();
         setGrid(theGame.grid);
       }
+    }
+    function scheduleNext() {
+      let id;
+      if (isGameOn) {
+        id = setInterval(next, 500);
+      }
+      return () => clearInterval(id);
     }
   }, [isGameOn, theGame]);
 

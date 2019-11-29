@@ -101,7 +101,6 @@ it('resets game instance on resetGame', () => {
     result.current.resetGame();
   });
 
-  // FIXME: Why 3 and not 2?
   expect(createFromSizeSpy).toHaveBeenCalledTimes(3);
 });
 

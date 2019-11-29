@@ -100,3 +100,21 @@ it('Any dead cell with exactly three live neighbours becomes a live cell, as if 
 
   expect(g.grid[1][1].state).toBe(Cell.STATE_ALIVE);
 });
+
+it('sets all cell states to dead on clear', () => {
+  const g = GameOfLife.createFromCellStatesGrid(
+    [
+      [Cell.STATE_ALIVE, Cell.STATE_DEAD, Cell.STATE_ALIVE],
+      [Cell.STATE_DEAD, Cell.STATE_DEAD, Cell.STATE_DEAD],
+      [Cell.STATE_ALIVE, Cell.STATE_DEAD, Cell.STATE_DEAD],
+    ]
+  );
+
+  g.clear();
+
+  for (const rowOfCells of g.grid) {
+    for (const aCell of rowOfCells) {
+      expect(aCell.state).toBe(Cell.STATE_DEAD);
+    }
+  }
+});
