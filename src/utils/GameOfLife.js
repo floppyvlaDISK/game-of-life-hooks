@@ -7,30 +7,16 @@ export default class GameOfLife {
   }
 
   static createFromCellStatesGrid(cellStatesGrid) {
-    return new this(GameOfLife._mapCellStatesToTheCells(cellStatesGrid));
+    return new this(GameOfLife._mapStatesToCells(cellStatesGrid));
   }
 
   static createFromSize(size) {
-    return new this(GameOfLife._mapRandomCellStatesToTheCells(size));
+    return new this(GameOfLife._mapStatesToCells(
+      GameOfLife._createGridOfRandomCellStates(size)
+    ));
   }
 
-  get grid() {
-    return this._grid;
-  }
-
-  next() {
-    this._grid = GameOfLife._mapCellStatesToTheCells(
-      this._calcNextCellStatesGrid()
-    );
-  }
-
-  clear() {
-    this._grid = GameOfLife._mapCellStatesToTheCells(
-      this._setAllCellStatesToDead()
-    );
-  }
-
-  static _mapCellStatesToTheCells(cellStatesGrid) {
+  static _mapStatesToCells(cellStatesGrid) {
     return cellStatesGrid.reduce(
       (result, rowOfCellStates, x) => {
         const rowOfCells = rowOfCellStates.map(
@@ -42,43 +28,51 @@ export default class GameOfLife {
     );
   }
 
-  static _mapRandomCellStatesToTheCells(size) {
-    let result = [];
-    for (let x = 0; x < size; x++) {
-      let rowOfCells = [];
-      for (let y = 0; y < size; y++) {
-        rowOfCells.push(new Cell(Cell.getRandomState(), x, y));
-      }
-      result.push(rowOfCells);
-    }
-    return result;
+  static _createGridOfRandomCellStates(size) {
+    return Array(size).fill(0).map(_row => {
+      return Array(size).fill(0).map(_cell => Cell.getRandomState());
+    });
   }
 
-  _calcNextCellStatesGrid() {
+  get grid() {
+    return this._grid;
+  }
+
+  next() {
+    this._grid = GameOfLife._mapStatesToCells(
+      this._calcNextGridOfCellStates()
+    );
+  }
+
+  clear() {
+    this._grid = GameOfLife._mapStatesToCells(
+      this._calcGridOfDeadCellStates()
+    );
+  }
+
+  _calcNextGridOfCellStates() {
+    return this._calcGridOfCellStates(
+      aCell => this._calcNextStateFor(aCell)
+    );
+  }
+
+  _calcGridOfDeadCellStates() {
+    return this._calcGridOfCellStates(
+      _ => Cell.STATE_DEAD,
+    );
+  }
+
+  _calcGridOfCellStates(mapCellState) {
     return this._grid.reduce(
       (result, rowOfCells) => {
-        const rowOfCellsNextStates = rowOfCells.map(
-          aCell => this._calculateNextStateFor(aCell)
-        );
+        const rowOfCellsNextStates = rowOfCells.map(mapCellState);
         return [...result, rowOfCellsNextStates];
       },
       []
     );
   }
 
-  _setAllCellStatesToDead() {
-    return this._grid.reduce(
-      (result, rowOfCells) => {
-        const rowOfDeadCells = rowOfCells.map(
-          _ => Cell.STATE_DEAD,
-        );
-        return [...result, rowOfDeadCells];
-      },
-      []
-    );
-  }
-
-  _calculateNextStateFor(aCell) {
+  _calcNextStateFor(aCell) {
     const aliveNeighbors = this._getAliveNeighborsFor(aCell);
     return aCell.calculateNextState(aliveNeighbors);
   }
