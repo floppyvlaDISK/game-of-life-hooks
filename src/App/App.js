@@ -12,17 +12,34 @@ function App() {
     toggleIsGameOn,
     resetGame,
     clearGame,
+    nextGameGeneration,
   } = useGameOfLife(50);
   return (
     <AppContentWrapper>
       <GameBoard grid={grid} />
-      <Button onClick={toggleIsGameOn} data-testid="game-toggle-button">
+      <Button
+        secondary
+        data-testid="game-next-gen-button"
+        onClick={nextGameGeneration}
+      >
+        Next Gen
+      </Button>
+      <Button
+        onClick={toggleIsGameOn}
+        data-testid="game-toggle-button"
+      >
         {isGameOn ? 'Pause' : 'Start'}
       </Button>
-      <Button onClick={resetGame} secondary data-testid="game-reset-button">
+      <Button
+        secondary
+        onClick={resetGame}
+        data-testid="game-reset-button"
+      >
         Reset
       </Button>
-      <Button onClick={clearGame}>Clear</Button>
+      <Button onClick={clearGame}>
+        Clear
+      </Button>
     </AppContentWrapper>
   );
 }

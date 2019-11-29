@@ -46,6 +46,21 @@ it('resets button text on game reset', () => {
   expect(getGameToggleButton().textContent).toBe('Start');
 });
 
+it('pauses the game on "next generation" button click', () => {
+  act(() => {
+    render(<App />, container);
+  });
+
+  act(() => {
+    simulateGameToggleButtonClick();
+  });
+  act(() => {
+    simulateGameNextGenButtonClick();
+  });
+
+  expect(getGameToggleButton().textContent).toBe('Start');
+});
+
 afterEach(() => {
   unmountComponentAtNode(container);
   document.body.removeChild(container);
@@ -57,6 +72,11 @@ function getGameToggleButton() {
 }
 function getGameResetButton() {
   return container.querySelector(sel('game-reset-button'));
+}
+function simulateGameNextGenButtonClick() {
+  simulateButtonClick(
+    container.querySelector(sel('game-next-gen-button'))
+  );
 }
 function simulateGameToggleButtonClick() {
   simulateButtonClick(getGameToggleButton());
