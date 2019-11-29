@@ -34,7 +34,7 @@ export default function useGameOfLife(size) {
     toggleIsGameOn,
     resetGame,
     clearGame,
-    // TODO: Implement manual next() calling, disable if game is on
+    nextGameGeneration,
   };
 
   function toggleIsGameOn() {
@@ -47,6 +47,11 @@ export default function useGameOfLife(size) {
   function clearGame() {
     setIsGameOn(false);
     theGame.clear();
+    setGrid(theGame.grid);
+  }
+  function nextGameGeneration() {
+    setIsGameOn(false);
+    theGame.next();
     setGrid(theGame.grid);
   }
 }

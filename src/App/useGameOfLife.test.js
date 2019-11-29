@@ -43,6 +43,8 @@ it('resets isGameOn', () => {
 
   act(() => {
     result.current.toggleIsGameOn();
+  });
+  act(() => {
     result.current.resetGame();
   });
 
@@ -64,6 +66,8 @@ it('does not call next() on isGameOn set to false', () => {
 
   act(() => {
     result.current.toggleIsGameOn();
+  });
+  act(() => {
     result.current.toggleIsGameOn();
   });
 
@@ -75,6 +79,8 @@ it('sets interval to call next() every second on isGameOn set to true', () => {
 
   act(() => {
     result.current.toggleIsGameOn();
+  });
+  act(() => {
     jest.advanceTimersByTime(STEP_INTERVAL_IN_MS * 3);
   });
 
@@ -86,8 +92,14 @@ it('does not call next() after interval on isGameOn set to false', () => {
 
   act(() => {
     result.current.toggleIsGameOn();
+  });
+  act(() => {
     jest.advanceTimersByTime(STEP_INTERVAL_IN_MS / 2);
+  });
+  act(() => {
     result.current.toggleIsGameOn();
+  });
+  act(() => {
     jest.advanceTimersByTime(STEP_INTERVAL_IN_MS / 2);
   });
 
@@ -112,4 +124,18 @@ it('calls clear() on clearGame', () => {
   });
 
   expect(clearSpy).toHaveBeenCalledTimes(1);
+});
+
+it('calls next() and pauses game on nextGameGeneration', () => {
+  const { result } = renderHook(() => useGameOfLife(3));
+
+  act(() => {
+    result.current.toggleIsGameOn();
+  });
+  act(() => {
+    result.current.nextGameGeneration();
+  });
+
+  expect(result.current.isGameOn).toBe(false);
+  expect(nextSpy).toHaveBeenCalledTimes(2);
 });
